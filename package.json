@@ -1,0 +1,23 @@
+{
+  "name": "refactory-cli-challenge",
+  "version": "1.0.0",
+  "description": "refactory cli challenge using caporal",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf index-transpiled.js && babel ./ --out-file index-transpiled.js --ignore ./node_modules",
+    "start": "npm run build && node index-transpiled.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Hyuwah",
+  "license": "MIT",
+  "dependencies": {
+    "caporal": "^0.10.0",
+    "pageres": "^4.5.1",
+    "rimraf": "^2.6.2",
+    "scrape-it": "^5.0.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  }
+}
