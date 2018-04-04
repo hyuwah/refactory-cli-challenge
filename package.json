@@ -4,8 +4,8 @@
   "description": "refactory cli challenge using caporal",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf index-transpiled.js && babel ./ --out-file index-transpiled.js --ignore ./node_modules",
-    "start": "npm run build && node index-transpiled.js",
+    "build": "rimraf app.js && babel ./ --out-file app.js --ignore ./node_modules",
+    "start": "npm run build && node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Hyuwah",

@@ -51,7 +51,8 @@ prog
     })
 
     /**
- * #2 Arithmetic WIP
+     * TODO: flexible arguments?
+ * #2 Arithmetic (WIP)
  */
     .command('add', 'Arithmetic - add')
     .argument('[input]', "numbers to add", prog.LIST)
@@ -171,6 +172,7 @@ prog
     .action((args, options, logger) => {
         logger.info('public ip')
 
+        
         http.get({
             'host': 'api.ipify.org',
             'port': 80,
@@ -179,6 +181,8 @@ prog
             res.on('data', ip => {
                 return console.log("output: " + ip)
             })
+        }).on("error", err=>{
+            return console.log("Unable to connect to the internet.")
         })
     })
 
@@ -190,19 +194,24 @@ prog
         logger.info('headlines')
 
         scrapeIt('https://www.kompas.com', {
-            headlines:{
+            headlines: {
                 listItem: '.headline__thumb__item',
-                data:{
+                data: {
                     title: '.headline__thumb__title',
-                    url:{ selector:'a', attr:'href'}
+                    url: {
+                        selector: 'a',
+                        attr: 'href'
+                    }
                 }
             }
-        }).then(({data,res})=>{
+        }).then(({data, res}) => {
             // console.log(data)
-            data.headlines.forEach(item=>{
-                console.log(`Title: ${item.title}\nURL: ${item.url}\n\n`)
-            })
-        }).catch(err=>{
+            data
+                .headlines
+                .forEach(item => {
+                    console.log(`Title: ${item.title}\nURL: ${item.url}\n\n`)
+                })
+        }).catch(err => {
             console.log(err)
         })
     })
@@ -219,29 +228,31 @@ prog
         logger.info(args)
     })
 
-
-     /**
+    /**
       * #10 Get a screenshot from a URL
       */
-     .command('screenshot', 'Get screenshot from url')
+    .command('screenshot', 'Get screenshot from url')
     .argument('<url>', 'url')
-    .option('--format <format>','image format', prog.STRING,'png')
+    .option('--format <format>', 'image format', prog.STRING, 'png')
     .action((args, options, logger) => {
         logger.info('screenshot')
 
         logger.info(args)
         let pageres = new Pageres()
-        pageres.src(args.url,['1920x1080']).dest('./screenshot').run()
-                .then(()=>{
-                    console.log('screenshot taken')
-                })
+        pageres
+            .src(args.url, ['1920x1080'])
+            .dest('./screenshot')
+            .run()
+            .then(() => {
+                console.log('screenshot taken')
+            })
     })
 
-      /**
+/**
        * #11 Get screenshots from a list of file
        */
 
-       /**
+/**
         * #12 Get all information about new movies in theaters for today from 21Cineplex nowplaying
         */
 
